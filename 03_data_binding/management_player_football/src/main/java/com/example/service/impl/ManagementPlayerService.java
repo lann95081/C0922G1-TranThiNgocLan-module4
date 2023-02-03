@@ -30,6 +30,12 @@ public class ManagementPlayerService implements IManagementPlayerService {
 
     @Override
     public void save(Player player) {
-        iManagementPlayerRepository.save(player);
+        for (Player players : iManagementPlayerRepository.findAll()) {
+            if (players.getName().equals(player.getName())) {
+                System.out.println("Player đã tồn tại");
+            } else {
+                iManagementPlayerRepository.save(player);
+            }
+        }
     }
 }

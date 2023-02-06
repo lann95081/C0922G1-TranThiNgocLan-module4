@@ -26,13 +26,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="player:${player}">
-        <td th:text="${player.id}"></td>
-        <td th:text="${player.name}"></td>
-        <td th:text="${player.position}"></td>
-        <td th:text="${player.experience}"></td>
-        <td><a th:href="@{/delete(id=${player.id})}">delete</a></td>
-        <td><a th:href="@{/view/__${player.id}__}">view</a></td>
+    <tr th:each="pl:${player}">
+        <td th:text="${pl.id}"></td>
+        <td th:text="${pl.name}"></td>
+        <td th:text="${pl.position}"></td>
+        <td th:text="${pl.experience}"></td>
+        <td><a th:href="@{/delete(id=${pl.id})}">delete</a>
+        </td>
+        <td><a th:href="@{/view/__${pl.id}__}">view</a></td>
     </tr>
     </tbody>
 </table>

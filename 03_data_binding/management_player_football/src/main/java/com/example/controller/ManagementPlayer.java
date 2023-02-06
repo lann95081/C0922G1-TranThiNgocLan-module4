@@ -10,11 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+//@RequestMapping("/player")
 public class ManagementPlayer {
     @Autowired
     private IManagementPlayerService iManagementPlayerService;
 
-    @GetMapping("")
+    @GetMapping("/")
     public String showList(Model model) {
         model.addAttribute("playerList", iManagementPlayerService.findAll());
         return "list";
@@ -40,7 +41,7 @@ public class ManagementPlayer {
         model.addAttribute("player", new Player());
         return "create";
     }
-
+//
     @PostMapping("/create")
     public String save(@ModelAttribute Player player, Model model, RedirectAttributes redirectAttributes) {
         iManagementPlayerService.save(player);

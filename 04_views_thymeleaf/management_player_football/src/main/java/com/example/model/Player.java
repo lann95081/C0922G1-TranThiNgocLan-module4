@@ -4,7 +4,7 @@ public class Player {
     private int id;
     private String name;
     private String dayOfBirth;
-    public String position;
+    private String position;
     private String experience;
 
     public Player() {

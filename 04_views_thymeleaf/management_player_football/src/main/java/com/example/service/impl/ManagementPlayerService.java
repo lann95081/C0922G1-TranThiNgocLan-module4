@@ -35,7 +35,12 @@ public class ManagementPlayerService implements IManagementPlayerService {
 
     @Override
     public Player findById(int id) {
-        return players.get(id);
+        if (players.get(id) != null) {
+            return players.get(id);
+        } else {
+            System.out.println("Khong tim thay cau thu ban can tim.");
+        }
+        return null;
     }
 
     @Override

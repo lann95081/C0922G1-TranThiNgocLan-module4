@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 
-@Component
 public class ConnectionUtil {
     public static SessionFactory sessionFactory;
     public static EntityManager entityManager;

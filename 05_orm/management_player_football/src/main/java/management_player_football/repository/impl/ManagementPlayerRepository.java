@@ -7,81 +7,37 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 public class ManagementPlayerRepository implements IManagementPlayerRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public List<Player> findAll() {
-        Session session = null;
-        List<Player> playerList;
-        try {
-            session = ConnectionUtil.sessionFactory.openSession();
-            playerList = session.createQuery("from Player").getResultList();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+        List<Player> playerList = null;
+        playerList = entityManager.createQuery("select p from Player as p").getResultList();
         return playerList;
     }
 
     @Override
+    @Transactional
     public void save(Player player) {
-        Transaction transaction = null;
-        Session session = null;
-
-        try {
-            session = ConnectionUtil.sessionFactory.openSession();
-            transaction = session.beginTransaction();
-
-            session.save(player);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+        entityManager.persist(player);
     }
 
     @Override
     public Player findById(int id) {
-        Session session = null;
-        Player player;
-        try {
-            session = ConnectionUtil.sessionFactory.openSession();
-            player = (Player) session.createQuery("FROM Player where id = :id").setParameter("id", id).getSingleResult();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-        return player;
+        return entityManager.find(Player.class, id);
     }
 
     @Override
-    public void remove(Player player) {
-        Transaction transaction = null;
-        Session session = null;
-
-        try {
-            session = ConnectionUtil.sessionFactory.openSession();
-            transaction = session.beginTransaction();
-
-            session.remove(player);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+    public void remove(int id) {
+        entityManager.remove(entityManager.find(Player.class, id));
     }
 }

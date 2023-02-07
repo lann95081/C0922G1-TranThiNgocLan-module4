@@ -11,5 +11,5 @@ public interface IManagementPlayerRepository {
 
     Player findById(int id);
 
-    void remove(Player player);
+    void remove(int id);
 }

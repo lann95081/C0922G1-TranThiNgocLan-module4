@@ -15,5 +15,5 @@ public interface IManagementPlayerService {
 
     void remove(Player player);
 
-    Page<Player> searchByName(String name, Pageable pageable);
+    Page<Player> searchByName(String name, String fromDate, String toDate, Pageable pageable);
 }

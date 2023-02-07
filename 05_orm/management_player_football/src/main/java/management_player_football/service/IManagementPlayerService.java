@@ -11,5 +11,5 @@ public interface IManagementPlayerService {
 
     Player findById(int id);
 
-    void remove(Player player);
+    void remove(int id);
 }

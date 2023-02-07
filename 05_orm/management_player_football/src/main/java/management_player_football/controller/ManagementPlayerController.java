@@ -46,8 +46,8 @@ public class ManagementPlayerController {
 
 
     @GetMapping("/delete")
-    public String delete(Player player, RedirectAttributes redirectAttributes) {
-        iManagementPlayerService.remove(player);
+    public String delete(@RequestParam int id, RedirectAttributes redirectAttributes) {
+        iManagementPlayerService.remove(id);
         redirectAttributes.addFlashAttribute("mess", "Xoa thanh cong.");
         return "redirect:/";
     }

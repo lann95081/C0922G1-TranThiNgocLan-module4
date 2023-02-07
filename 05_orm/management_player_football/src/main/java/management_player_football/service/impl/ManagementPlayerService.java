@@ -29,7 +29,7 @@ public class ManagementPlayerService implements IManagementPlayerService {
     }
 
     @Override
-    public void remove(Player player) {
-        iManagementPlayerRepository.remove(player);
+    public void remove(int id) {
+        iManagementPlayerRepository.remove(id);
     }
 }

@@ -3,7 +3,6 @@ package com.example.management_player_football.controller;
 import com.example.management_player_football.model.Player;
 import com.example.management_player_football.service.IManagementPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -21,13 +20,17 @@ public class ManagementPlayerController {
 
 
     @GetMapping("")
-    public String showList(@PageableDefault(page = {page}) Pageable pageable  , @RequestParam(value = "search", defaultValue = "")
-            String search, Model model) {
-
-        model.addAttribute("playerList", iManagementPlayerService.searchByName(search, pageable));
-        model.addAttribute("search", search);
+    public String showList(@PageableDefault() Pageable pageable, @RequestParam(name = "freeText", defaultValue = "")
+            String freeText, @RequestParam(value = "fromDate", defaultValue = "") String fromDate,
+                           @RequestParam(value = "toDate", defaultValue = "") String toDate,
+                           Model model) {
+        model.addAttribute("playerList", iManagementPlayerService.searchByName(freeText, fromDate, toDate, pageable));
+        model.addAttribute("search", freeText);
         return "player/list";
+
     }
+
+    //                           @RequestParam(value = "search", defaultValue = "")
 
     @GetMapping("/create")
     public String create(Model model) {

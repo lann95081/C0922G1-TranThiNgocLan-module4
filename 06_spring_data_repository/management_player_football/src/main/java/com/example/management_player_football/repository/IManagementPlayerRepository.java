@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public interface IManagementPlayerRepository extends JpaRepository<Player, Integer> {
     //    @Query(value = "select * from Player where name like %:name%", nativeQuery = true)
-    Page<Player> searchByNameContaining(String name, Pageable pageable);
+    Page<Player> searchByNameLike(String name, Pageable pageable);
 
     Page<Player> searchByNameContainingAndDayOfBirthBetween(String name, @Param("startDate") LocalDate startDate,
                                                             @Param("endDate") LocalDate endDate, Pageable pageable);

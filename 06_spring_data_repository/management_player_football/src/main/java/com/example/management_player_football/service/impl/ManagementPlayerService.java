@@ -40,7 +40,7 @@ public class ManagementPlayerService implements IManagementPlayerService {
     @Override
     public Page<Player> searchByName(String name, String fromDate, String toDate, Pageable pageable) {
         if (Strings.isBlank(fromDate) && Strings.isBlank(toDate)) {
-            return iManagementPlayerRepository.searchByNameContaining("%" + name + "%", pageable);
+            return iManagementPlayerRepository.searchByNameLike("%" + name + "%", pageable);
         }
         return iManagementPlayerRepository.searchByNameContainingAndDayOfBirthBetween("%" + name + "%", LocalDate.parse(fromDate), LocalDate.parse(toDate), pageable);
     }

@@ -30,8 +30,6 @@ public class ManagementPlayerController {
 
     }
 
-    //                           @RequestParam(value = "search", defaultValue = "")
-
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("player", new Player());

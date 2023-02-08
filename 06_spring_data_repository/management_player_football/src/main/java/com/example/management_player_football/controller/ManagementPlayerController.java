@@ -4,6 +4,7 @@ import com.example.management_player_football.model.Player;
 import com.example.management_player_football.service.IManagementPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ public class ManagementPlayerController {
 
 
     @GetMapping("")
-    public String showList(@PageableDefault() Pageable pageable, @RequestParam(name = "freeText", defaultValue = "")
+    public String showList(@PageableDefault(sort = "name",direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(name = "freeText", defaultValue = "")
             String freeText, @RequestParam(value = "fromDate", defaultValue = "") String fromDate,
                            @RequestParam(value = "toDate", defaultValue = "") String toDate,
                            Model model) {

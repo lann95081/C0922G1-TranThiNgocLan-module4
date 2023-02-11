@@ -21,8 +21,11 @@
         </tr>
 
         <tr>
-            <td>Birthday:</td>
-            <td><input type="date" th:field="*{dayOfBirth}"></td>
+            <td>Age:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+                <input type="number" th:field="*{age}">
+            </td>
         </tr>
 
         <tr>

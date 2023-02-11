@@ -8,15 +8,24 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String age;
+    private String dayOfBirth;
     private String position;
     private String experience;
+    private boolean status;
 
     @ManyToOne
     @JoinColumn(name = "team_id", referencedColumnName = "teamId")
     private Team team;
 
     public Player() {
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public int getId() {
@@ -35,12 +44,12 @@ public class Player {
         this.name = name;
     }
 
-    public String getAge() {
-        return age;
+    public String getDayOfBirth() {
+        return dayOfBirth;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setDayOfBirth(String dayOfBirth) {
+        this.dayOfBirth = dayOfBirth;
     }
 
     public String getPosition() {
@@ -59,11 +68,11 @@ public class Player {
         this.experience = experience;
     }
 
-    public Team getTeam() {
-        return team;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

@@ -17,11 +17,13 @@
 
 <h3>Player List</h3>
 
+<p>Có <span th:text="${playerList.size()}"></span> cầu thủ</p>
+
 <table border="1">
     <tr>
         <th>#</th>
         <th>Name</th>
-        <th>Age</th>
+        <th>Birthday</th>
         <th>Position</th>
         <th>Experience (year)</th>
         <th>Team</th>
@@ -32,7 +34,7 @@
     <tr th:each="player, status : ${playerList}">
         <td th:text="${status.count}"></td>
         <td th:text="${player.name}"></td>
-        <td th:text="${player.Age}"></td>
+        <td th:text="${player.dayOfBirth}"></td>
         <td th:text="${player.position}"></td>
         <td th:text="${player.experience}"></td>
         <td th:if="${player.team}" th:text="${player.team.teamName}"></td>
@@ -41,10 +43,10 @@
     </tr>
 </table>
 
-<div>
-    <a th:href="@{/(page=${playerList.number - 1}, search=${search})}" th:if="${playerList.hasPrevious()}">Previous</a>
-    <span th:text="${playerList.number + 1}"></span>/<span th:text="${playerList.totalPages}"></span>
-    <a th:href="@{/(page=${playerList.number + 1}, search=${search})}" th:if="${playerList.hasNext()}">Next</a>
-</div>
+<!--<div>-->
+<!--    <a th:href="@{/(page=${playerList.number - 1}, search=${search})}" th:if="${playerList.hasPrevious()}">Previous</a>-->
+<!--    <span th:text="${playerList.number + 1}"></span>/<span th:text="${playerList.totalPages}"></span>-->
+<!--    <a th:href="@{/(page=${playerList.number + 1}, search=${search})}" th:if="${playerList.hasNext()}">Next</a>-->
+<!--</div>-->
 </body>
 </html>

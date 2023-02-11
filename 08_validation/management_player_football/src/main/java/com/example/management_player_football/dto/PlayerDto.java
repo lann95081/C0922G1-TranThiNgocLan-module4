@@ -5,9 +5,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class PlayerDto implements Validator {
     private int id;
@@ -17,7 +15,12 @@ public class PlayerDto implements Validator {
     @Pattern(regexp = "^[a-zA-Z\\+]*$", message = "Tên không được chứa kí tự đặc biệt")
     private String name;
 
-    private String dayOfBirth;
+    @NotBlank(message = "Tuổi không được để trống.")
+    @Min(value = 16, message = "Tuổi phải lớn hơn hoặc bằng 16")
+    @Max(value = 100, message = "Tuổi phải nhỏ hơn hoặc bằng 100")
+    private String age;
+
+    @NotBlank(message = "Vị trí không được bỏ trống.")
     private String position;
 
     @NotBlank(message = "Kinh nghiệm không được để trống.")
@@ -52,12 +55,12 @@ public class PlayerDto implements Validator {
         this.name = name;
     }
 
-    public String getDayOfBirth() {
-        return dayOfBirth;
+    public String getAge() {
+        return age;
     }
 
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public String getPosition() {
@@ -88,6 +91,5 @@ public class PlayerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
     }
 }

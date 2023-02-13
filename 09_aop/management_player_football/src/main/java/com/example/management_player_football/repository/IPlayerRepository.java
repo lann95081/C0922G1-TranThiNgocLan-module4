@@ -7,6 +7,4 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface IPlayerRepository extends JpaRepository<Player, Integer> {
-    @Query(value = "select * from player",nativeQuery = true)
-    List<Player> findAll();
 }

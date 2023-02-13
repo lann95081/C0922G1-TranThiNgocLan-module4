@@ -17,4 +17,14 @@ public class PlayerService implements IPlayerService {
     public List<Player> findAll() {
         return iPlayerRepository.findAll();
     }
+
+    @Override
+    public void save(Player player) {
+        iPlayerRepository.save(player);
+    }
+
+    @Override
+    public Player findById(int id) {
+        return iPlayerRepository.findById(id).get();
+    }
 }

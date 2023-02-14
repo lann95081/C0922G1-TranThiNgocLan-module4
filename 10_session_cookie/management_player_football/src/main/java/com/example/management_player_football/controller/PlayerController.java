@@ -34,13 +34,15 @@ public class PlayerController {
     }
 
     @GetMapping("add/{id}")
-    public String addFavorite(@PathVariable int id, @SessionAttribute("favorite") FavoriteDto favorite){
-        Player player=iPlayerService.findById(id);
-        if (player!=null){
-            PlayerDto playerDto =new PlayerDto();
-            BeanUtils.copyProperties(player,playerDto);
-            favorite.addFavoritePlayer(playerDto);
-        }
-        return "redirect:/favorite";
+    public String addFavorite(@PathVariable int id, @SessionAttribute("favorite") FavoriteDto favoriteDto) {
+        Player player = iPlayerService.findById(id);
+
+        PlayerDto playerDto = new PlayerDto();
+        BeanUtils.copyProperties(player, playerDto);
+        favoriteDto.addFavoritePlayer(playerDto);
+
+        return "redirect:/";
     }
+
+
 }

@@ -8,9 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FavoriteController {
-
     @GetMapping("/favorite")
-    public ModelAndView showFavorite(@SessionAttribute(value = "favorite",required = false) FavoriteDto favorite){
-        return new ModelAndView("favorite/list", String.valueOf(favorite),favorite);
+    public ModelAndView showFavorite(@SessionAttribute(name = "favorite") FavoriteDto favoriteDto) {
+        return new ModelAndView("favorite/list", "favorite", favoriteDto);
     }
 }

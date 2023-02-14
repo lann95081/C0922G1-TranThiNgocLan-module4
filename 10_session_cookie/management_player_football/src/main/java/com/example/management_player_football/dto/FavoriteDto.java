@@ -4,25 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FavoriteDto {
-    private Map<PlayerDto, String> playerMap = new HashMap<>();
+    private Map<PlayerDto, Integer> playerMap = new HashMap<>();
 
     public FavoriteDto() {
     }
 
-    public Map<PlayerDto, String> getPlayerMap() {
+    public Map<PlayerDto, Integer> getPlayerMap() {
         return playerMap;
     }
 
-    public void setPlayerMap(Map<PlayerDto, String> playerMap) {
+    public void setPlayerMap(Map<PlayerDto, Integer> playerMap) {
         this.playerMap = playerMap;
     }
 
     public void addFavoritePlayer(PlayerDto playerDto) {
         if (playerMap.containsKey(playerDto)) {
-            String status = playerMap.get(playerDto);
-            playerMap.replace(playerDto, status);
+            Integer view = playerMap.get(playerDto);
+            playerMap.replace(playerDto, view +1);
         } else {
-            playerMap.put(playerDto, "");
+            playerMap.put(playerDto,1);
         }
     }
 }

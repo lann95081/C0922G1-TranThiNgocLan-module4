@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>Favorite Player List</h3>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Position</th>
+        <th>Experience</th>
+        <th>Status</th>
+    </tr>
+
+    <tr th:each="playerMap: ${favorite.playerMap}">
+        <td th:text="${playerMap.key.name}"></td>
+        <td th:text="${playerMap.key.age}"></td>
+        <td th:text="${playerMap.key.position}"></td>
+        <td th:text="${playerMap.key.experience}"></td>
+        <td th:text="${playerMap.value}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -25,10 +25,10 @@ public class PlayerController {
     private ITeamService iTeamService;
 
     @GetMapping("")
-    public String showList(Model model) {
+    public String showList(Model model) throws ExceptionHandle {
         List<Player> playerList = iPlayerService.findAll();
         if (playerList.size() > 11) {
-            return "errorPage";
+            throw new ExceptionHandle();
         }
         model.addAttribute("playerList", playerList);
         model.addAttribute("teamList", iTeamService.findAll());

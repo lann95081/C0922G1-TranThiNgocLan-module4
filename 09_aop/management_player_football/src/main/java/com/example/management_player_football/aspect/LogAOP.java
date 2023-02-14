@@ -3,22 +3,24 @@ package com.example.management_player_football.aspect;
 import com.example.management_player_football.dto.PlayerDto;
 import com.example.management_player_football.model.Player;
 import com.example.management_player_football.service.impl.PlayerService;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
 public class LogAOP {
-
-    private PlayerService playerService = new PlayerService();
+    @Autowired
+    private PlayerService playerService;
 
     @Pointcut("execution(* com.example.management_player_football.controller.PlayerController.update(..))&&args(playerDto,*,*,*)")
     public void getAllUpdate(PlayerDto playerDto) {
     }
 
-    @AfterThrowing(value = "getAllUpdate(playerDto)", argNames = "playerDto")
+    @After(value = "getAllUpdate(playerDto)", argNames = "playerDto")
     public void printUpdate(PlayerDto playerDto) {
         int count = 0;
         for (Player player : playerService.findAll()) {

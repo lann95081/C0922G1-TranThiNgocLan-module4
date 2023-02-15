@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @SessionAttributes("favorite")
 public class PlayerController {
@@ -22,7 +25,7 @@ public class PlayerController {
     }
 
     @GetMapping("")
-    public String showList(Model model) {
+    public String showList(Model model, @CookieValue(value = "playerId",required = false,defaultValue = "-1") int id) {
         model.addAttribute("playerList", iPlayerService.findAll());
         return "player/list";
     }
@@ -34,15 +37,19 @@ public class PlayerController {
     }
 
     @GetMapping("add/{id}")
-    public String addFavorite(@PathVariable int id, @SessionAttribute("favorite") FavoriteDto favoriteDto) {
+    public String addFavorite(@PathVariable int id, @SessionAttribute("favorite") FavoriteDto favoriteDto,
+                              HttpServletResponse response) {
         Player player = iPlayerService.findById(id);
 
         PlayerDto playerDto = new PlayerDto();
         BeanUtils.copyProperties(player, playerDto);
         favoriteDto.addFavoritePlayer(playerDto);
 
-        return "redirect:/";
+        Cookie cookie = new Cookie("playerId", id + "");
+        cookie.setMaxAge(1 * 24 * 60 * 60);
+        cookie.setPath("/favorite");
+        response.addCookie(cookie);
+
+        return "redirect:/favorite";
     }
-
-
 }

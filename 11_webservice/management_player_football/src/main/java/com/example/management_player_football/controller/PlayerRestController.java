@@ -15,6 +15,7 @@ public class PlayerRestController {
     @Autowired
     private IPlayerService iPlayerService;
 
+    //XEM DANH SÁCH
     @GetMapping("")
     public ResponseEntity<List<Player>> getAll() {
         List<Player> playerList = iPlayerService.findAll();
@@ -24,6 +25,7 @@ public class PlayerRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //XEM CHI TIẾT
     @GetMapping("/detail/{id}")
     public ResponseEntity<Player> detail(@PathVariable int id) {
         Player player = iPlayerService.findById(id);
@@ -35,12 +37,14 @@ public class PlayerRestController {
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
+    //THÊM MỚI
     @PostMapping("")
     public ResponseEntity<List<Player>> add(@RequestBody Player player) {
         iPlayerService.save(player);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
+    
+    //CẬP NHẬT
     @PutMapping("")
     public ResponseEntity<List<Player>> edit(@RequestBody Player player) {
         iPlayerService.save(player);

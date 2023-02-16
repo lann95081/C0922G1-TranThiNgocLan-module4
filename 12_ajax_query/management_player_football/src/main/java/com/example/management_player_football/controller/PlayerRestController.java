@@ -22,7 +22,7 @@ public class PlayerRestController {
         if (playerList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(playerList,HttpStatus.OK);
     }
 
     //XEM CHI TIẾT

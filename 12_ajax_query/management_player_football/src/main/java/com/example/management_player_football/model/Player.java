@@ -12,10 +12,6 @@ public class Player {
     private String position;
     private String experience;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id", referencedColumnName = "teamId")
-    private Team team;
-
     public Player() {
     }
 
@@ -59,11 +55,4 @@ public class Player {
         this.experience = experience;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
 }

@@ -41,7 +41,7 @@ public class PlayerRestController {
     @PostMapping("")
     public ResponseEntity<List<Player>> add(@RequestBody Player player) {
         iPlayerService.save(player);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //CẬP NHẬT

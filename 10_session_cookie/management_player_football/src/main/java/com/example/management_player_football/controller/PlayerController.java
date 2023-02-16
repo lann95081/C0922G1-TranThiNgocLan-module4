@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @Controller
 @SessionAttributes("favorite")
@@ -39,11 +40,19 @@ public class PlayerController {
     @GetMapping("add/{id}")
     public String addFavorite(@PathVariable int id, @SessionAttribute("favorite") FavoriteDto favoriteDto,
                               HttpServletResponse response) {
-        Player player = iPlayerService.findById(id);
 
+        int num=response.getStatus();
+        for (Player players:iPlayerService.findAll()) {
+            if (iPlayerService.findById(id).isPresent()){
+                players.setStatus(players.getStatus()+1);
+            }
+        }
+
+        Player player = iPlayerService.findById(id).get();
         PlayerDto playerDto = new PlayerDto();
         BeanUtils.copyProperties(player, playerDto);
         favoriteDto.addFavoritePlayer(playerDto);
+
 
         Cookie cookie = new Cookie("playerId", id + "");
         cookie.setMaxAge(1 * 24 * 60 * 60);

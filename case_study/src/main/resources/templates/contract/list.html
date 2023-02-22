@@ -27,7 +27,7 @@
         <a th:href="@{/}"><i class="fa-solid fa-backward"></i> Quay lại trang chủ</a>
     </p>
 
-    <div th:if="${message}">
+    <div th:if="${#message}">
         <div class="justify-content-center d-flex">
             <div class="alert alert-success alert-dismissible fade show w-50 text-center">
                 <strong th:text="${message}"></strong>

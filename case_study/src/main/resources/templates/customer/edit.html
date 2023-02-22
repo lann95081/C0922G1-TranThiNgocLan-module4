@@ -47,8 +47,7 @@
                 <label for="dateOfBirth" class="h6">Ngày sinh:</label>
                 <p style="color: red" th:if="${#fields.hasErrors('customerBirthday')}"
                    th:errors="*{customerBirthday}"></p>
-                <input type="date" id="dateOfBirth" class="form-control" th:field="*{customerBirthday}"
-                       th:min="${minAge}" th:max="${maxAge}"/>
+                <input type="date" id="dateOfBirth" class="form-control" th:field="*{customerBirthday}"/>
             </div>
 
             <div class="mt-3 form-group">
@@ -77,7 +76,6 @@
                 <label for="idCard" class="h6">Số CMND/CCCD:</label>
                 <p style="color: red" th:if="${#fields.hasErrors('customerIdCard')}"
                    th:errors="*{customerIdCard}"></p>
-                <p style="color: red" th:if="${duplicateIdCard}" th:text="${duplicateIdCard}"></p>
                 <div class="input-group">
                     <input type="text" id="idCard" class="form-control" placeholder="Nhập số CMND/CCCD.."
                            th:field="*{customerIdCard}"/>

@@ -52,7 +52,6 @@ public class CustomerController {
     public String createCus(Model model) {
         model.addAttribute("customerDto", new CustomerDto());
         model.addAttribute("customerTypeList", iCustomerTypeService.findAll());
-
         return "customer/create";
     }
 
@@ -62,7 +61,7 @@ public class CustomerController {
 
         Map<String, String> messError = iCustomerService.messError(customerDto);
         new CustomerDto().validate(customerDto, bindingResult);
-        model.addAttribute("customerDtoc",customerDto);
+        model.addAttribute("customerDto",customerDto);
         if (bindingResult.hasErrors()) {
             model.addAttribute("customerTypeList", iCustomerTypeService.findAll());
             return "customer/create";

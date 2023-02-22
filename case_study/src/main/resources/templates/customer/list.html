@@ -58,7 +58,8 @@
                 </select>
 
                 <button class="btn btn-light btn-outline-primary" type="submit" name="action" value="search">
-                    <i class="fa-solid fa-magnifying-glass"></i></button>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </form>
         </div>
     </nav>
@@ -172,7 +173,8 @@
 
             <form th:action="@{/customer/delete}">
                 <div class="modal-body">
-                    <span class="h6">Khách hàng:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
+                    <span class="h6">Khách hàng:</span>
+                    <strong id="nameDelete" class="text-danger ps-2"></strong>
                     <input type="hidden" name="idDelete" id="idDelete" readonly/>
                 </div>
 

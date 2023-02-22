@@ -16,7 +16,17 @@ public class Player {
     @JoinColumn(name = "team_id", referencedColumnName = "teamId")
     private Team team;
 
+    private boolean delete_status;
+
     public Player() {
+    }
+
+    public boolean isDelete_status() {
+        return delete_status;
+    }
+
+    public void setDelete_status(boolean delete_status) {
+        this.delete_status = delete_status;
     }
 
     public int getId() {

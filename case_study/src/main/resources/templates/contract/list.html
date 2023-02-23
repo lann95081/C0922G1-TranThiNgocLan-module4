@@ -175,7 +175,7 @@
                         <div class="mt-3 form-group">
                             <label for="startDate" class="h6">Ngày bắt đầu:</label>
                             <input type="date" id="startDate" class="form-control" th:field="*{startDate}"
-                                   th:min="${minAge}" onchange="changeEndDate(this)" required
+                                   onchange="changeEndDate(this)" required
                                    pattern="^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[0-1])$"
                                    title="Vui lòng chọn ngày bắt đầu."/>
                         </div>

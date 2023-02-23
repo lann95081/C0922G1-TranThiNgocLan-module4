@@ -24,9 +24,6 @@
 <div class="mx-5 px-5 pt-3">
     <h2 class="text-center fw-bold text-light">THÊM MỚI NHÂN VIÊN</h2>
 
-<!--    <p class="text-center mt-3"><a th:href="@{/}"><i class="fa-solid fa-house-chimney h5 mx-1"></i> Quay lại trang-->
-<!--        chủ</a></p>-->
-
     <p class="text-center">
         <a th:href="@{/employee}"><i class="fa-solid fa-backward"></i> Quay lại trang danh sách nhân viên</a>
     </p>
@@ -48,8 +45,7 @@
                 <label for="dateOfBirth" class="h6">Ngày sinh:</label>
                 <p style="color: red" th:if="${#fields.hasErrors('employeeBirthday')}"
                    th:errors="*{employeeBirthday}"></p>
-                <input type="date" id="dateOfBirth" class="form-control" th:field="*{employeeBirthday}"
-                       th:min="${minAge}" th:max="${maxAge}"/>
+                <input type="date" id="dateOfBirth" class="form-control" th:field="*{employeeBirthday}"/>
             </div>
 
             <div class="mt-3 form-group">

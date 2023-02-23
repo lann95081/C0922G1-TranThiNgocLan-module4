@@ -2,35 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách nhân viên</title>
+    <title>Danh sách</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-image: url("https://vietjack.edu.vn/wp-content/uploads/2022/07/Hinh-Nen-Trai-Bo-DT-17.jpg");
+        }
+    </style>
+
 </head>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background-image: url("https://vietjack.edu.vn/wp-content/uploads/2022/07/Hinh-Nen-Trai-Bo-DT-17.jpg");
-    }
-</style>
-
 <body>
 
 <div class="p-3">
-    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH NHÂN VIÊN</h2>
+    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH</h2>
 
     <p class="text-center">
         <a th:href="@{/}"><i class="fa-solid fa-backward"></i> Quay lại trang chủ</a>
     </p>
 
-    <div th:if="${message}">
+    <div th:if="${mess}">
         <div class="justify-content-center d-flex">
             <div class="alert alert-success alert-dismissible fade show w-50 text-center">
-                <strong th:text="${message}"></strong>
+                <strong th:text="${mess}"></strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         </div>
@@ -41,10 +41,11 @@
             <button class="btn btn-primary btn-outline-secondary btn-sm" data-bs-toggle="modal"
                     data-bs-target="#addEmployee">
                 <span class="fa-solid fa-person-circle-plus text-light h5 my-auto me-1"></span>
-                <span class="text-light"> Thêm mới nhân viên</span>
+                <span class="text-light">Thêm mới</span>
             </button>
 
-            <form class="d-flex my-2" role="search" th:action="@{/employee}">
+                                            <!--Search-->
+            <form class="d-flex my-2" role="search" th:action="@{/}">
                 <input class="form-control me-2" type="text" placeholder="Nhập tên.." aria-label="Search"
                        name="nameSearch">
 
@@ -56,63 +57,59 @@
                 <button class="btn btn-light btn-outline-primary" type="submit" name="action" value="search">
                     <i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
+
         </div>
     </nav>
 
     <table class="table table-light table-striped table-bordered">
         <tr class="table-dark text-light">
             <th class="text-center"><i class="fa-sharp fa-solid fa-bolt"></i></th>
-            <th>Tên nhân viên</th>
-            <th>Ngày sinh</th>
-            <th>SĐT</th>
-            <th>Địa chỉ</th>
-            <th>Trình độ</th>
-            <th>Vị trí</th>
-            <th>Bộ phận</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th class="text-center">Xem</th>
             <th class="text-center">Sửa</th>
             <th class="text-center">Xóa</th>
         </tr>
 
-        <tr th:each="employee, status : ${employeeList}">
+        <tr th:each="i, status : ${employeeList}">
             <td class="text-center" th:text="${status.count + employeeList.number * 5}"></td>
-            <td th:text="${employee.employeeName}"></td>
-            <td th:text="${employee.employeeBirthday}"></td>
-            <td th:text="${employee.employeePhone}"></td>
-            <td th:text="${employee.employeeAddress}"></td>
-            <td th:text="${employee.educationDegree.educationDegreeName}"></td>
-            <td th:text="${employee.position.positionName}"></td>
-            <td th:text="${employee.divisions.divisionName}"></td>
-
+            <td th:text="${i.employeeName}"></td>
+            <td th:text="${i.educationDegree.educationDegreeName}"></td>
+            <td th:if="${i.customerGender==0}" th:text="Nữ"></td>
+            <td th:if="${i.customerGender==1}" th:text="Nam"></td>
+            <td th:if="${i.customerGender==2}" th:text="LGBT"></td>
+            <!----------------------------------Xem chi tiết modal---------------------------------------------->
             <td class="text-center">
                 <button th:attr="onclick=|viewEmployee('${employee.employeeName}', '${employee.employeeBirthday}',
                 '${employee.employeeIdCard}', '${employee.employeeSalary}', '${employee.employeePhone}',
-                '${employee.employeeEmail}', '${employee.employeeAddress}', '${employee.position.positionName}',
-                '${employee.educationDegree.educationDegreeName}', '${employee.divisions.divisionName}')|"
+                '${employee.employeeEmail}', '${employee.employeeAddress}', '${employee.position.positionName}')|"
                         class="btn btn-warning btn-outline-secondary btn-sm" data-bs-toggle="modal"
                         data-bs-target="#viewEmployee">
                     <span class="fa-solid fa-user text-light h6 m-auto px-2"></span>
                 </button>
             </td>
-
-<!--            <td class="text-center">-->
-<!--                <a th:href="@{/employee/edit/__${employee.employeeId}__}">-->
-<!--                    <button class="btn btn-success btn-outline-secondary btn-sm">-->
-<!--                        <span class="fa-solid fa-user-pen text-light h6 m-auto px-2"></span>-->
-<!--                    </button>-->
-<!--                </a>-->
-<!--            </td>-->
+                                            <!--Sửa chuyển trang khác-->
+            <!--            <td class="text-center">-->
+            <!--                <a th:href="@{/employee/edit/__${employee.employeeId}__}">-->
+            <!--                    <button class="btn btn-success btn-outline-secondary btn-sm">-->
+            <!--                        <span class="fa-solid fa-user-pen text-light h6 m-auto px-2"></span>-->
+            <!--                    </button>-->
+            <!--                </a>-->
+            <!--            </td>-->
+<!-------------------------------------------------------Sửa modal----------------------------------------------------->
             <td class="text-center">
                 <button th:attr="onclick=|editEmployee('${employee.employeeId}','${employee.employeeName}', '${employee.employeeBirthday}',
                 '${employee.employeeIdCard}', '${employee.employeeSalary}', '${employee.employeePhone}',
-                '${employee.employeeEmail}', '${employee.employeeAddress}', '${employee.position.positionId}',
-                '${employee.educationDegree.educationDegreeId}', '${employee.divisions.divisionId}')|"
+                '${employee.employeeEmail}', '${employee.employeeAddress}', '${employee.position.positionId}')|"
                         class="btn btn-success btn-outline-secondary btn-sm" data-bs-toggle="modal"
                         data-bs-target="#editEmployee">
                     <span class="fa-solid fa-user text-light h6 m-auto px-2"></span>
                 </button>
             </td>
-
+<!-------------------------------------------------------Xoá modal----------------------------------------------------->
             <td class="text-center">
                 <button th:attr="onclick=|deleteEmployee('${employee.employeeId}', '${employee.employeeName}')|"
                         class="btn btn-danger btn-outline-secondary btn-sm" data-bs-toggle="modal"
@@ -122,11 +119,11 @@
             </td>
         </tr>
     </table>
-
+<!------------------------------------------------------Phân trang----------------------------------------------------->
     <nav aria-label="..." class="justify-content-center d-flex">
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" th:href="@{'/employee'(page=${employeeList.number - 1}, nameSearch=${nameSearch},
+                <a class="page-link" th:href="@{'/'(page=${employeeList.number - 1}, nameSearch=${nameSearch},
                 phoneSearch=${phoneSearch}, addressSearch=${addressSearch})}" th:if="${employeeList.hasPrevious()}">
                     &laquo;</a>
             </li>
@@ -134,23 +131,23 @@
                 <a class="page-link">&laquo;</a>
             </li>
 
-            <li class="page-item"><a class="page-link" th:href="@{'/employee'(page=${employeeList.number - 1},
+            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${employeeList.number - 1},
             nameSearch=${nameSearch}, phoneSearch=${phoneSearch}, addressSearch=${addressSearch})}"
                                      th:if="${employeeList.hasPrevious()}" th:text="${employeeList.number}"></a></li>
 
             <li class="page-item active">
-                <a class="page-link" th:href="@{'/employee'(page=${employeeList.number}, nameSearch=${nameSearch},
+                <a class="page-link" th:href="@{'/'(page=${employeeList.number}, nameSearch=${nameSearch},
                 phoneSearch=${phoneSearch}, addressSearch=${addressSearch})}" th:text="${employeeList.number + 1}">
                     <span class="sr-only">(trang hiện tại)</span></a>
             </li>
 
-            <li class="page-item"><a class="page-link" th:href="@{'/employee'(page=${employeeList.number + 1},
+            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${employeeList.number + 1},
             nameSearch=${nameSearch}, phoneSearch=${phoneSearch}, addressSearch=${addressSearch})}"
                                      th:if="${employeeList.hasNext()}" th:text="${employeeList.number + 2}"></a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{'/employee'(page=${employeeList.number + 1}, nameSearch=${nameSearch},
+                <a class="page-link" th:href="@{'/'(page=${employeeList.number + 1}, nameSearch=${nameSearch},
                 phoneSearch=${phoneSearch}, addressSearch=${addressSearch})}"
                    th:if="${employeeList.hasNext()}">&raquo;</a>
             </li>
@@ -169,9 +166,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form th:action="@{/employee/delete}">
+            <form th:action="@{/delete}">
                 <div class="modal-body">
-                    <span class="h6">Nhân viên:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
+                    <span class="h6">Tên:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
                     <input type="hidden" name="idDelete" id="idDelete" readonly/>
                 </div>
 
@@ -188,7 +185,7 @@
     <div class="modal-dialog">
         <div class="modal-content modalCSS">
             <div class="modal-header">
-                <h4 class="modal-title text-center" id="exampleModalLabel2">THÔNG TIN NHÂN VIÊN</h4>
+                <h4 class="modal-title text-center" id="exampleModalLabel2">THÔNG TIN CHI TIẾT</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -230,16 +227,6 @@
                     </tr>
 
                     <tr>
-                        <td class="h6 pe-3">Trình độ học vấn:</td>
-                        <td id="educationDegree" class="text-primary"></td>
-                    </tr>
-
-                    <tr>
-                        <td class="h6 pe-3">Bộ phận:</td>
-                        <td id="division" class="text-primary"></td>
-                    </tr>
-
-                    <tr>
                         <td class="h6 pe-3">Vị trí:</td>
                         <td id="position" class="text-primary"></td>
                     </tr>
@@ -256,10 +243,10 @@
 <div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="border border-2 border-success p-3 rounded formCSS" th:action="@{/employee/add}"
+            <form class="border border-2 border-success p-3 rounded formCSS" th:action="@{/add}"
                   th:object="${employeeDto}" method="POST">
                 <div class="modal-header">
-                    <h3 class="modal-title fw-bold text-primary" id="exampleModalLabel3">THÊM MỚI NHÂN VIÊN</h3>
+                    <h3 class="modal-title fw-bold text-primary" id="exampleModalLabel3">THÊM MỚI</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -278,6 +265,28 @@
                     <div class="mt-3 form-group">
                         <label for="dateOfBirth" class="h6">Ngày sinh:</label>
                         <input type="date" id="dateOfBirth" class="form-control" th:field="*{employeeBirthday}"/>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label class="h6">Giới tính:</label>
+                        <p style="color: red" th:if="${#fields.hasErrors('customerGender')}"
+                           th:errors="*{customerGender}"></p>
+                        <div class="d-flex">
+                            <label class="d-block me-4">
+                                <input type="radio" th:field="*{customerGender}" th:value="0"/> Nữ
+                                <i class="fa-solid fa-mars"></i>
+                            </label>
+
+                            <label class="d-block me-4">
+                                <input type="radio" th:field="*{customerGender}" th:value="1"/> Nam
+                                <i class="fa-solid fa-venus"></i>
+                            </label>
+
+                            <label class="d-block">
+                                <input type="radio" th:field="*{customerGender}" th:value="2"/> LGBT
+                                <i class="fa-solid fa-heart"></i>
+                            </label>
+                        </div>
                     </div>
 
                     <div class="mt-3 form-group">
@@ -342,34 +351,11 @@
                         </div>
                     </div>
 
-                    <div class="mt-3 form-group">
-                        <label class="h6" for="educationDegreeAdd">Trình độ học vấn:</label>
-                        <div class="input-group">
-                            <select id="educationDegreeAdd" class="form-select"
-                                    th:field="*{educationDegree.educationDegreeId}">
-                                <option th:each="item : ${educationDegreeList}" th:value="${item.educationDegreeId}"
-                                        th:text="${item.educationDegreeName}"></option>
-                            </select>
-                            <span class="input-group-text"><i class="fa-solid fa-graduation-cap"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 form-group">
-                        <label class="h6" for="divisionAdd">Bộ phận:</label>
-                        <div class="input-group">
-                            <select id="divisionAdd" class="form-select" th:field="*{divisions.divisionId}">
-                                <option th:each="item : ${divisionList}" th:value="${item.divisionId}"
-                                        th:text="${item.divisionName}"></option>
-                            </select>
-                            <span class="input-group-text"><i class="fa-brands fa-creative-commons-nd"></i></span>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     <button type="submit" class="btn btn-success" value="delete">Lưu</button>
                 </div>
+
             </form>
         </div>
     </div>
@@ -378,10 +364,10 @@
 <div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="border border-2 border-success p-3 rounded formCSS" th:action="@{/employee/update}"
+            <form class="border border-2 border-success p-3 rounded formCSS" th:action="@{/update}"
                   th:object="${employeeDto}" method="POST">
                 <div class="modal-header">
-                    <h3 class="modal-title fw-bold text-primary" id="exampleModalLabel4">CHỈNH SỬA NHÂN VIÊN</h3>
+                    <h3 class="modal-title fw-bold text-primary" id="exampleModalLabel4">CHỈNH SỬA</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -456,6 +442,28 @@
                     </div>
 
                     <div class="mt-3 form-group">
+                        <label class="h6">Giới tính:</label>
+                        <p style="color: red" th:if="${#fields.hasErrors('customerGender')}"
+                           th:errors="*{customerGender}"></p>
+                        <div class="d-flex">
+                            <label class="d-block me-4">
+                                <input type="radio" th:field="*{customerGender}" th:value="0"/> Nữ
+                                <i class="fa-solid fa-mars"></i>
+                            </label>
+
+                            <label class="d-block me-4">
+                                <input type="radio" th:field="*{customerGender}" th:value="1"/> Nam
+                                <i class="fa-solid fa-venus"></i>
+                            </label>
+
+                            <label class="d-block">
+                                <input type="radio" th:field="*{customerGender}" th:value="2"/> LGBT
+                                <i class="fa-solid fa-heart"></i>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
                         <label class="h6" for="positionEdit">Vị trí:</label>
                         <div class="input-group">
                             <select id="positionEdit" class="form-select" th:field="*{position.positionId}">
@@ -466,34 +474,11 @@
                         </div>
                     </div>
 
-                    <div class="mt-3 form-group">
-                        <label class="h6" for="educationDegreeEdit">Trình độ học vấn:</label>
-                        <div class="input-group">
-                            <select id="educationDegreeEdit" class="form-select"
-                                    th:field="*{educationDegree.educationDegreeId}">
-                                <option th:each="item : ${educationDegreeList}" th:value="${item.educationDegreeId}"
-                                        th:text="${item.educationDegreeName}"></option>
-                            </select>
-                            <span class="input-group-text"><i class="fa-solid fa-graduation-cap"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 form-group">
-                        <label class="h6" for="divisionEdit">Bộ phận:</label>
-                        <div class="input-group">
-                            <select id="divisionEdit" class="form-select" th:field="*{divisions.divisionId}">
-                                <option th:each="item : ${divisionList}" th:value="${item.divisionId}"
-                                        th:text="${item.divisionName}"></option>
-                            </select>
-                            <span class="input-group-text"><i class="fa-brands fa-creative-commons-nd"></i></span>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     <button type="submit" class="btn btn-success" value="delete">Lưu</button>
                 </div>
+
             </form>
         </div>
     </div>
@@ -506,40 +491,34 @@
         debugger
     }
 
-    function viewEmployee(name, birthday, idCard, salary, phone, email, address, position, educationDegree, division) {
+    function viewEmployee(name, birthday, idCard, salary, phone, email, address, position,) {
         document.getElementById("name").innerText = name;
         document.getElementById("birthday").innerText = birthday;
         document.getElementById("idCard").innerText = idCard;
-        document.getElementById("salary").innerText = "₫ " + salary;
         document.getElementById("phone").innerText = phone;
         document.getElementById("email").innerText = email;
         document.getElementById("address").innerText = address;
         document.getElementById("position").innerText = position;
-        document.getElementById("educationDegree").innerText = educationDegree;
-        document.getElementById("division").innerText = division;
-        debugger
     }
 
-    function editEmployee(id, name, birthday, idCard, salary, phone, email, address, position, educationDegree, division) {
+    function editEmployee(id, name, birthday, idCard, salary, phone, email, address, position) {
         document.getElementById("idEdit").value = id;
         document.getElementById("nameEdit").value = name;
-
-        let arr = birthday.split("/");
         document.getElementById("dateOfBirthEdit").value = birthday;
-
         document.getElementById("idCardEdit").value = idCard;
         document.getElementById("salaryEdit").value = salary;
         document.getElementById("phoneEdit").value = phone;
         document.getElementById("emailEdit").value = email;
         document.getElementById("addressEdit").value = address;
         document.getElementById("positionEdit").value = position;
-        document.getElementById("educationDegreeEdit").value = educationDegree;
-        document.getElementById("divisionEdit").value = division;
     }
 </script>
+
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous">
 </script>
+
 </html>
